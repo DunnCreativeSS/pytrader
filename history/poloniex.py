@@ -5,6 +5,7 @@ import time
 import hmac
 import hashlib
 import ccxt
+import datetime
 
 def createTimeStamp(datestr, format="%Y-%m-%d %H:%M:%S"):
     return time.mktime(time.strptime(datestr, format))
@@ -31,6 +32,31 @@ class poloniex:
     def api_query(self, command, req={}):
         exchange=ccxt.cobinhood()
         exchange.apiKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfdG9rZW5faWQiOiIxYjZiYzYwMC02Mjk5LTRjYjktYjk3MC02NDcwZjBkNzc5NTQiLCJzY29wZSI6WyJzY29wZV9leGNoYW5nZV90cmFkZV9yZWFkIiwic2NvcGVfZXhjaGFuZ2VfdHJhZGVfd3JpdGUiLCJzY29wZV9leGNoYW5nZV9sZWRnZXJfcmVhZCJdLCJ1c2VyX2lkIjoiM2U1OGU2NzItZDk0My00Y2I1LTkyMzMtOWZkMGYyODFmMGRkIn0.IpuC_7GuJPp4D1LyqX43ILzDcqpga8xxaFG39_26Nv4.V2:36199575115e65a66690f1b692b9ba5ed96ba9ace53c25f28601d6bcd5d323ba'
+        if(command == "returnHistory"):
+            tickers = {}    
+        # load all markets from the exchange
+            markets = exchange.load_markets()
+
+            # output all symbols
+
+            delay = int(exchange.rateLimit / 1000)  # delay in between requests
+
+            for symbol in exchange.symbols:
+                try:
+
+                    current_time = datetime.datetime.now()  # use datetime.datetime.utcnow() for UTC time
+                    ten_minutes_ago = current_time - datetime.timedelta(days=10)
+
+                    ten_minutes_ago_epoch_ts = int(ten_minutes_ago.timestamp() * 1000)  # in miliseconds
+
+                   
+                    ret = urllib2.urlopen(urllib2.Request('https://api.cobinhood.com?timeframe=1m&start_time='+ten_minutes_ago_epoch_ts+'&end_time='+int(current_time.timestamp() * 1000)))
+                    jsonRet = json.loads(ret.read())
+                    return(jsonRet)
+                except Exception as e:
+                    print(e)    
+            #ret = urllib2.urlopen(urllib2.Request('https://poloniex.com/public?command=' + command))
+            return (tickers)
         if(command == "returnTicker" or command == "return24Volume"):
             tickers = {}    
         # load all markets from the exchange
@@ -100,8 +126,12 @@ class poloniex:
             jsonRet = json.loads(ret.read())
             return self.post_process(jsonRet)
 
+    def returnHistory(self):
+        return self.api_query("returnHistory")
     def returnTicker(self):
         return self.api_query("returnTicker")
+    def returnOHLCV(self):
+        return self.api_query("returnOHLCV")
 
     def return24Volume(self):
         return self.api_query("return24Volume")

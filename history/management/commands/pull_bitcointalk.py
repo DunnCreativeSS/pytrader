@@ -24,7 +24,10 @@ class Command(BaseCommand):
 
         rss_url = 'https://bitcointalk.org/index.php?type=rss;action=.xml'
         response = requests.get(rss_url)
-        root = ET.fromstring(response.text.encode('utf-8'))
+        import xml.etree.ElementTree as ET
+        parser = ET.XMLParser(encoding="utf-8")
+        root = ET.fromstring(response.text, parser=parser)
+
         for item in root.iter('item'):
             children = {child.tag: child.text.encode('utf-8') for child in item}
             post_link = children['link']

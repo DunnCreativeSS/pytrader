@@ -256,7 +256,7 @@ SOCIAL_NETWORK_SENTIMENT_CONFIG = {
 # https://poloniex.com/fees/
 FEES = {
     'poloniex': [
-        {'maker': 0.0015, 'taker': 0.0025, 'volume': '< 600 BTC'},
+        {'maker': 0, 'taker': 0, 'volume': '< 600 BTC'},
         {'maker': 0.0014, 'taker': 0.0024, 'volume': '>= 600 BTC'},
         {'maker': 0.0012, 'taker': 0.0022, 'volume': '>= 1200 BTC'},
         {'maker': 0.001, 'taker': 0.0020, 'volume': '>= 2400 BTC'},
