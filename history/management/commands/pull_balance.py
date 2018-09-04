@@ -24,21 +24,26 @@ class Command(BaseCommand):
         # record balances
         deposited_amount_btc, deposited_amount_usd = get_deposit_balance()
         with transaction.atomic():
-            for ticker in balances:
-                val = float(balances[ticker]['available']) + float(balances[ticker]['onOrders'])
-                if val > 0.0001:
-
-                    exchange_rate_coin_to_btc = get_exchange_rate_to_btc(ticker)
-                    exchange_rate_btc_to_usd = get_exchange_rate_btc_to_usd()
-                    btc_val = exchange_rate_coin_to_btc * val
-                    usd_val = exchange_rate_btc_to_usd * btc_val
-                    b = Balance(symbol=ticker, coin_balance=val, btc_balance=btc_val,
-                                exchange_to_btc_rate=exchange_rate_coin_to_btc, usd_balance=usd_val,
-                                exchange_to_usd_rate=exchange_rate_coin_to_btc,
-                                deposited_amount_btc=deposited_amount_btc if ticker == 'BTC' else 0.00,
-                                deposited_amount_usd=deposited_amount_usd if ticker == 'BTC' else 0.00)
-                    b.save()
-
+            try:
+                for ticker2 in balances:
+                    for v in (balances[ticker2]['result']):
+                        for b in (balances[ticker2]['result'][v]):
+                            print(b)
+                            val = float(b['total']) + float(b['total'])
+                            if val > 0.0001:
+                                ticker = [b]['currency']
+                                exchange_rate_coin_to_btc = get_exchange_rate_to_btc(ticker)
+                                exchange_rate_btc_to_usd = get_exchange_rate_btc_to_usd()
+                                btc_val = exchange_rate_coin_to_btc * val
+                                usd_val = exchange_rate_btc_to_usd * btc_val
+                                b = Balance(symbol=ticker, coin_balance=val, btc_balance=btc_val,
+                                            exchange_to_btc_rate=exchange_rate_coin_to_btc, usd_balance=usd_val,
+                                            exchange_to_usd_rate=exchange_rate_coin_to_btc,
+                                            deposited_amount_btc=deposited_amount_btc if ticker == 'BTC' else 0.00,
+                                            deposited_amount_usd=deposited_amount_usd if ticker == 'BTC' else 0.00)
+                                b.save()
+            except Exception as e:
+                print(e)
         for b in Balance.objects.filter(date_str='0'):
             # django timezone stuff , FML
             b.date_str = datetime.datetime.strftime(b.created_on - datetime.timedelta(hours=int(7)), '%Y-%m-%d %H:%M')

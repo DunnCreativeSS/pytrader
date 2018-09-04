@@ -15,15 +15,16 @@ class Command(BaseCommand):
         price = poo.returnTicker()
 
         for ticker in price.keys():
+            print(price[ticker])
             this_price = price[ticker]['last']
-            this_volume = price[ticker]['quoteVolume']
-            the_str = ticker + ',' + str(time.time()) + ',' + this_price + ", " + this_volume
+            this_volume = price[ticker]['baseVolume'] * this_price
+            the_str = ticker + ',' + str(time.time()) + ',' + str(this_price) + ", " + str(this_volume)
             print("(pp)"+the_str)
             p = Price()
             p.price = this_price
             p.volume = this_volume
-            p.lowestask = price[ticker]['lowestAsk']
-            p.highestbid = price[ticker]['highestBid']
+            p.lowestask = price[ticker]['ask']
+            p.highestbid = price[ticker]['bid']
             p.symbol = ticker
             p.created_on_str = str(p.created_on)
             p.save()
