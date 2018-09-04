@@ -138,7 +138,7 @@ TRADER_CURRENCY_CONFIG = [
      'granularity': TRADER_GRANULARITY_MINS,
      'datasetinputs': 4},
     {'type': 'classifier',
-     'symbol': 'USDT_BTC',
+     'symbol': 'BTC/USD',
      'name': 'AdaBoost',
      'weight': 0.1,
      'granularity': TRADER_GRANULARITY_MINS,
