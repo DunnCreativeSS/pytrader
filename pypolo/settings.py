@@ -197,7 +197,7 @@ TRADER_CURRENCY_CONFIG = [
 
 TRAINER_CURRENCY_CONFIG = {
     'classifiers': {
-        'ticker': ['BTC/ETH', 'BCT/USD', 'BTC/XMR', 'BTC/EOS'],
+        'ticker': ['BTC/ETH', 'BCT/USD'],
         'min_back': [100, 1000, 24 * 60, 24 * 60 * 2],
         'granularity': [10, 15, 20, 30, 40, 50, 60, 120, 240],
         'datasetinputs': [2, 3, 5],
@@ -207,7 +207,7 @@ TRAINER_CURRENCY_CONFIG = {
                  "Quadratic Discriminant Analysis"],
     },
     'supervised_nn': {
-        'ticker': ['BTC_ETH', 'USDT_BTC'],
+        'ticker': ['BTC/ETH', 'BTC/USD'],
         'hidden_layers': [1, 5, 15, 40],
         # 2/23 -- removed 15, it was barely edged out by 1,5.
         # 2/25 -- added 15, 40 in because of recent bugs
