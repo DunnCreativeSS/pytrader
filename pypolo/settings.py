@@ -318,12 +318,19 @@ TRAINER_CURRENCY_CONFIG = {
         'timedelta_back_in_granularity_increments': [10, 30, 60, 100, 1000],
     }
 }
-
+#NEO ETH DASH QTUM BTC
 SOCIAL_NETWORK_SENTIMENT_CONFIG = {
     'twitter': ['ETH', 'BTC', 'FCT', 'BTS', 'NEO', 'QTUM', 'DASH'],
     'bitcointalk': ['ETH', 'BTC', 'FCT', 'BTS', 'NEO', 'QTUM', 'DASH'],
     'reddit': {
+		'qtum': ['QTUM'],
+		'dashcoin': ['DASH'],
+		'dashpay': ['DASH'],
+		'neo': ['NEO'],
+		'cryptocurrency': ['NEO', 'ETH', 'DASH', 'QTUM', 'BTC'],
+		'neotrader': ['NEO'],
         'ethereum': ['ETH'],
+        'ethinvestor': ['ETH'],
         'ethtrader': ['ETH'],
         'dogecoin': ['DOGE'],
         'bitcoin': ['BTC'],
