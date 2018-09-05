@@ -16,16 +16,19 @@ class Command(BaseCommand):
         price = json.dumps(price)
         price = json.loads(price)
         for ticker in price:
-            print(ticker)
-            this_price = ticker['last_price_24h']
-            this_volume = float(ticker['volume_24h']) * float(this_price)
-            the_str = str(ticker['currency_pair_code']) + ',' + str(time.time()) + ',' + str(this_price) + ", " + str(this_volume)
-            print("(pp)"+the_str)
-            p = Price()
-            p.price = this_price
-            p.volume = this_volume
-            p.lowestask = ticker['high_market_ask']
-            p.highestbid = ticker['low_market_bid']
-            p.symbol = str(ticker['currency_pair_code'])
-            p.created_on_str = str(p.created_on)
-            p.save()
+            try:
+                print(ticker)
+                this_price = ticker['last_traded_price']
+                this_volume = float(ticker['volume_24h']) * float(this_price)
+                the_str = str(ticker['currency_pair_code']) + ',' + str(time.time()) + ',' + str(this_price) + ", " + str(this_volume)
+                print("(pp)"+the_str)
+                p = Price()
+                p.price = this_price
+                p.volume = this_volume
+                p.lowestask = ticker['high_market_ask']
+                p.highestbid = ticker['low_market_bid']
+                p.symbol = str(ticker['currency_pair_code'])
+                p.created_on_str = str(p.created_on)
+                p.save()
+            except Exception as e:
+                print(e)
