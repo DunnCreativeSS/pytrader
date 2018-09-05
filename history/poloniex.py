@@ -32,8 +32,9 @@ class poloniex:
 
     def api_query(self, command, req={}):
         exchange=ccxt.quoinex()
+        exchange.timeout = 60000
         exchange.apiKey='662373'
-        exchange.apiSecret='jUWPQxX5LhVJwIRmeZUNqWrj7MBDdt0bURA4qOI9MRXvSI+bjeD828Ot8BNRPhV22HpFZW+dtTCVy2zaufHozQ=='
+        exchange.secret='jUWPQxX5LhVJwIRmeZUNqWrj7MBDdt0bURA4qOI9MRXvSI+bjeD828Ot8BNRPhV22HpFZW+dtTCVy2zaufHozQ=='
         
         if(command == "returnTicker" or command == "return24Volume"):
             
