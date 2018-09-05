@@ -74,12 +74,14 @@ def get_exchange_rate_to_btc(ticker, d=None):
         return 1
 
     try:
-        exchange_pair = 'BTC_' + ticker
+        exchange_pair = 'BTC' + ticker
         latest_price = Price.objects.filter(symbol=exchange_pair, created_on__lt=d).order_by('-created_on').first()
+        print(latest_price)
         return latest_price.price
     except:
-        exchange_pair = ticker + '_BTC'
+        exchange_pair = ticker + 'BTC'
         latest_price = Price.objects.filter(symbol=exchange_pair, created_on__lt=d).order_by('-created_on').first()
+        print(latest_price)
         return 1.0 / latest_price.price
 
 
@@ -88,7 +90,7 @@ def get_exchange_rate_btc_to_usd(d=None):
     if d is None:
         d = datetime.datetime.now()
 
-    exchange_pair = 'USDT_BTC'
+    exchange_pair = 'BTCUSD'
     latest_price = Price.objects.filter(symbol=exchange_pair, created_on__lt=d).order_by('-created_on').first()
     return latest_price.price
 
