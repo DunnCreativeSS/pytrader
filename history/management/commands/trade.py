@@ -51,7 +51,7 @@ class Command(BaseCommand):
         config = self.predictor_configs[i]
         # TODO: set an amount in USD, then figure out base_amount in currency based upon that, not a hardcoded value.
         symbol = config['symbol']
-        if symbol == 'USDT_BTC':
+        if symbol == 'BTC/USD':
             amount = 0.01
         else:
             amount = 1
