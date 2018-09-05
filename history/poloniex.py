@@ -61,10 +61,10 @@ class poloniex:
             ret = exchnage.fetchMyTrades(str(req['currencyPair']))
             return ret
         elif (command == "buy"):
-            ret = exchange.createOrder (str(req['currencyPair']), 'limit', 'buy', req['amount'],req['rate'], {funding_currency: 'BTC', leverage_level: 25})
+            ret = exchange.createOrder (str(req['currencyPair']), 'limit', 'buy', req['amount'] * 12.5,req['rate'], {funding_currency: 'BTC', leverage_level: 25})
             return ret
         elif (command == "sell"):
-            ret = exchange.createOrder (str(req['currencyPair']), 'limit', 'sell', req['amount'],req['rate'], {funding_currency: 'BTC', leverage_level: 25})
+            ret = exchange.createOrder (str(req['currencyPair']), 'limit', 'sell', req['amount'] * 12.5,req['rate'], {funding_currency: 'BTC', leverage_level: 25})
             return ret
         elif (command == "cancel"):
             ret = exchange.cancelOrder(req['orderNumber'])
